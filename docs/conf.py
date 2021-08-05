@@ -40,7 +40,7 @@ templates_path = ['_templates']
 exclude_patterns = ['_build', 'Thumbs.db', '.DS_Store']
 
 
-autodoc_mock_imports = ["networkit", "pkg_resources"]
+autodoc_mock_imports = ["cython","networkit", "pkg_resources"]
 
 # -- Options for HTML output -------------------------------------------------
 
