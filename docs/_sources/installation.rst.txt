@@ -2,35 +2,46 @@
 Installation
 ************
 
-Clone the CSTrack_URJC Github repository wherever you want to deploy the application.
+.. _deployment:
+
+===================
+Standard deployment
+===================
+
+Clone the CSTrack_URJC Github repository wherever you want to deploy the application. Then access the folder where the Dash application is located.
 
 .. code:: console
 
     $ git clone https://github.com/FernanSLN/CSTrack_URJC.git
+    $ cd CSTrack_URJC/cstrack_dash
 
-Install the package (or add it to your ``requirements.txt`` file):
+The application needs Python 3.9 to fully work. After installing Python, install the requirements:
 
 .. code:: console
 
-    $ pip install sphinx_rtd_theme
+    $ pip install -r requirements.txt
 
-In your ``conf.py`` file:
+=================
+Docker deployment
+=================
 
-.. code:: python
+The cstrack_dash folder comes with a Dockerfile file that can be used to create a Docker image with everything in it. This
+means that you will not need to install Python nor the dependencies. You will need to have Docker in the computer where you want to
+deploy the Dash application. The first steps are the same as in :ref:`deployment`:
 
-    import sphinx_rtd_theme
+.. code:: console
 
-    extensions = [
-        ...
-        'sphinx_rtd_theme',
-    ]
+    $ git clone https://github.com/FernanSLN/CSTrack_URJC.git
+    $ cd CSTrack_URJC/cstrack_dash
 
-    html_theme = "sphinx_rtd_theme"
+Then, you need to create and run the image with the following commands:
 
+.. code:: console
 
-.. note::
+    $ docker build -t cstrack .
+    $ docker run --name=cstrack_container -p 6123:6123
 
-   Adding this theme as an extension is what enables localization of theme
-   strings in your translated output. If these strings are not translated in
-   your output, either we lack the localized strings for your locale, or you
-   are using an old version of the theme.
+=======================
+Running the application
+=======================
+Prior to starting the Dash application have check the sections :ref:`columns-inline`
