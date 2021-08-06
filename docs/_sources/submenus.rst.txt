@@ -1,7 +1,4 @@
-submenus module
-===============
+Submenu creation module
+=======================
 
 .. automodule:: submenus
-   :members:
-   :undoc-members:
-   :show-inheritance:

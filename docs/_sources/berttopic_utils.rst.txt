@@ -1,7 +1,4 @@
-berttopic\_utils module
-=======================
+Bertopic utilities module
+=========================
 
 .. automodule:: berttopic_utils
-   :members:
-   :undoc-members:
-   :show-inheritance:

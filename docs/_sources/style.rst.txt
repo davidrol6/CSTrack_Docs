@@ -1,7 +1,4 @@
-style module
-============
+Style configuration module
+==========================
 
 .. automodule:: style
-   :members:
-   :undoc-members:
-   :show-inheritance:

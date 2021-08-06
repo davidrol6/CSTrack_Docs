@@ -1,7 +1,5 @@
-dash\_cs module
-===============
+Main application
+================
 
 .. automodule:: dash_cs
    :members:
-   :undoc-members:
-   :show-inheritance:
