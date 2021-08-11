@@ -45,9 +45,44 @@ Each document in that collection must contain the following fields:
 BERT model
 ==========
 
-The application preloads a BERT model in order to carry out Topic Modelling tasks. By filtering tweets and training this model
+The application preloads a BERT model created with BERTopic (Bertopic_) in order to carry out Topic Modelling tasks. By filtering tweets and training this model
 the Dash application creates visualizations that allow you to determine the themes of the discussions in Twitter (Depending on
 the tweet dataset). In order to provide this model to the application the variable BERT_MODEL must be supplied to the .env file.
+
+.. _Bertopic: https://github.com/MaartenGr/BERTopic
+
+In addition it is advisable to provide a .json file that contains two keys:
+
+* topics: A list with the topic assignments.
+* documents: The list of tweets.
+
+This information should be saved when calling the fit_transform() method of the BERTopic module. Here you can see an example
+of how to use BERTopic to create models for topic modelling and how to create the topics.json file.
+
+.. code:: python
+
+    import pandas as pd
+    from bertopic import BERTopic
+    import re
+    import json
+
+    #Data loading
+    df = pd.read_csv("tweets.csv", sep=";", encoding="latin-1", error_bad_lines=False)
+    df["Texto"] = df["Texto"].apply(str)
+    df["Texto"] = df["Texto"].map(lambda x: re.sub("[,\.!?#]^¿¡", "", x))
+    df["Texto"] = df["Texto"].map(lambda x: x.lower())
+    documents = df["Texto"].values.tolist()
+
+    #Model creation
+    model = BERTopic(verbose=True, language="multilingual")
+    topics, probs = model.fit_transform(documents)
+    model.save("bert_model")
+    with open("topics.json", "w") as f:
+        f.write(json.dumps({"topics": topics, "documents": documents}))
+
+
+
+This .json file needs to be defined in the variable BERT_TOPICS of the .env file.
 
 
 ====================

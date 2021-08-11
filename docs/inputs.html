@@ -234,9 +234,37 @@ Each document in that collection must contain the following fields:</p>
 </div>
 <div class="section" id="bert-model">
 <h2>BERT model<a class="headerlink" href="#bert-model" title="Permalink to this headline">¶</a></h2>
-<p>The application preloads a BERT model in order to carry out Topic Modelling tasks. By filtering tweets and training this model
+<p>The application preloads a BERT model created with BERTopic (<a class="reference external" href="https://github.com/MaartenGr/BERTopic">Bertopic</a>) in order to carry out Topic Modelling tasks. By filtering tweets and training this model
 the Dash application creates visualizations that allow you to determine the themes of the discussions in Twitter (Depending on
 the tweet dataset). In order to provide this model to the application the variable BERT_MODEL must be supplied to the .env file.</p>
+<p>In addition it is advisable to provide a .json file that contains two keys:</p>
+<ul class="simple">
+<li><p>topics: A list with the topic assignments.</p></li>
+<li><p>documents: The list of tweets.</p></li>
+</ul>
+<p>This information should be saved when calling the fit_transform() method of the BERTopic module. Here you can see an example
+of how to use BERTopic to create models for topic modelling and how to create the topics.json file.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+<span class="kn">from</span> <span class="nn">bertopic</span> <span class="kn">import</span> <span class="n">BERTopic</span>
+<span class="kn">import</span> <span class="nn">re</span>
+<span class="kn">import</span> <span class="nn">json</span>
+
+<span class="c1">#Data loading</span>
+<span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s2">&quot;tweets.csv&quot;</span><span class="p">,</span> <span class="n">sep</span><span class="o">=</span><span class="s2">&quot;;&quot;</span><span class="p">,</span> <span class="n">encoding</span><span class="o">=</span><span class="s2">&quot;latin-1&quot;</span><span class="p">,</span> <span class="n">error_bad_lines</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+<span class="n">df</span><span class="p">[</span><span class="s2">&quot;Texto&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="s2">&quot;Texto&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">apply</span><span class="p">(</span><span class="nb">str</span><span class="p">)</span>
+<span class="n">df</span><span class="p">[</span><span class="s2">&quot;Texto&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="s2">&quot;Texto&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">map</span><span class="p">(</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">re</span><span class="o">.</span><span class="n">sub</span><span class="p">(</span><span class="s2">&quot;[,\.!?#]^¿¡&quot;</span><span class="p">,</span> <span class="s2">&quot;&quot;</span><span class="p">,</span> <span class="n">x</span><span class="p">))</span>
+<span class="n">df</span><span class="p">[</span><span class="s2">&quot;Texto&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="s2">&quot;Texto&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">map</span><span class="p">(</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">x</span><span class="o">.</span><span class="n">lower</span><span class="p">())</span>
+<span class="n">documents</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="s2">&quot;Texto&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">values</span><span class="o">.</span><span class="n">tolist</span><span class="p">()</span>
+
+<span class="c1">#Model creation</span>
+<span class="n">model</span> <span class="o">=</span> <span class="n">BERTopic</span><span class="p">(</span><span class="n">verbose</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">language</span><span class="o">=</span><span class="s2">&quot;multilingual&quot;</span><span class="p">)</span>
+<span class="n">topics</span><span class="p">,</span> <span class="n">probs</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">fit_transform</span><span class="p">(</span><span class="n">documents</span><span class="p">)</span>
+<span class="n">model</span><span class="o">.</span><span class="n">save</span><span class="p">(</span><span class="s2">&quot;bert_model&quot;</span><span class="p">)</span>
+<span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="s2">&quot;topics.json&quot;</span><span class="p">,</span> <span class="s2">&quot;w&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+    <span class="n">f</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">json</span><span class="o">.</span><span class="n">dumps</span><span class="p">({</span><span class="s2">&quot;topics&quot;</span><span class="p">:</span> <span class="n">topics</span><span class="p">,</span> <span class="s2">&quot;documents&quot;</span><span class="p">:</span> <span class="n">documents</span><span class="p">}))</span>
+</pre></div>
+</div>
+<p>This .json file needs to be defined in the variable BERT_TOPICS of the .env file.</p>
 </div>
 <div class="section" id="final-considerations">
 <h2>Final considerations<a class="headerlink" href="#final-considerations" title="Permalink to this headline">¶</a></h2>
@@ -244,6 +272,7 @@ the tweet dataset). In order to provide this model to the application the variab
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">TWEET_DATASET</span><span class="o">=</span><span class="s2">&quot;tweets.csv&quot;</span>
 <span class="n">MONGODB_CONNECTION</span><span class="o">=</span><span class="s2">&quot;localhost:27017&quot;</span>
 <span class="n">BERT_MODEL</span><span class="o">=</span><span class="s2">&quot;bert_preloaded_model&quot;</span>
+<span class="n">BERT_TOPICS</span><span class="o">=</span><span class="s2">&quot;topics.json&quot;</span>
 </pre></div>
 </div>
 </div>

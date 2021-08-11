@@ -93,7 +93,19 @@
             
               <p class="caption" role="heading"><span class="caption-text">Project documentation</span></p>
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="installation.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="inputs.html">Input data</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="inputs.html#tweet-dataset">Tweet dataset</a></li>
+<li class="toctree-l2"><a class="reference internal" href="inputs.html#database-connections">Database connections</a></li>
+<li class="toctree-l2"><a class="reference internal" href="inputs.html#bert-model">BERT model</a></li>
+<li class="toctree-l2"><a class="reference internal" href="inputs.html#final-considerations">Final considerations</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="installation.html">Installation</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="installation.html#standard-deployment">Standard deployment</a></li>
+<li class="toctree-l2"><a class="reference internal" href="installation.html#docker-deployment">Docker deployment</a></li>
+<li class="toctree-l2"><a class="reference internal" href="installation.html#running-the-application">Running the application</a></li>
+</ul>
+</li>
 </ul>
 <p class="caption" role="heading"><span class="caption-text">Code</span></p>
 <ul class="current">
@@ -185,10 +197,639 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
             
-  <div class="section" id="input-formatting">
-<h1>Input formatting<a class="headerlink" href="#input-formatting" title="Permalink to this headline">¶</a></h1>
-<p>This module has the functions needed to format the input DataFrame into the data that we want to show in Dash. For instance, given a DataFrame with tweets you can create a network of retweets among users.</p>
-<span class="target" id="module-generate_utils"></span></div>
+  <div class="section" id="module-generate_utils">
+<span id="input-formatting"></span><h1>Input formatting<a class="headerlink" href="#module-generate_utils" title="Permalink to this headline">¶</a></h1>
+<dl class="py function">
+<dt class="sig sig-object py" id="generate_utils.combined_edges">
+<span class="sig-prename descclassname"><span class="pre">generate_utils.</span></span><span class="sig-name descname"><span class="pre">combined_edges</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/generate_utils.html#combined_edges"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#generate_utils.combined_edges" title="Permalink to this definition">¶</a></dt>
+<dd><p>Given the edges from retweets and from mentions the function combine them both</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>x</strong> – Edges from retweets</p></li>
+<li><p><strong>y</strong> – Edges from mentions</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>List of lists with the edges combined</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="generate_utils.direct_subgraphs">
+<span class="sig-prename descclassname"><span class="pre">generate_utils.</span></span><span class="sig-name descname"><span class="pre">direct_subgraphs</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">subgraphs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/generate_utils.html#direct_subgraphs"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#generate_utils.direct_subgraphs" title="Permalink to this definition">¶</a></dt>
+<dd><p>Given a networkx undirected list of subgraph the function returns all the graphs as directed</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>subgraphs</strong> – List of undirected networkx subgraphs</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>List of directed subgraphs as networkx objects</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="generate_utils.filter_by_interest">
+<span class="sig-prename descclassname"><span class="pre">generate_utils.</span></span><span class="sig-name descname"><span class="pre">filter_by_interest</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">df</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">interest</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/generate_utils.html#filter_by_interest"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#generate_utils.filter_by_interest" title="Permalink to this definition">¶</a></dt>
+<dd><p>Given a non filtered DataFrame the function returns the dataframe filtered by the column interest</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>df</strong> – DataFrame with all the tweets</p></li>
+<li><p><strong>interest</strong> – Active interest from the different categories available from the Lynguo tool</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>DataFrame containing the tweets filtered by the selected interest</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="generate_utils.filter_by_subtopic">
+<span class="sig-prename descclassname"><span class="pre">generate_utils.</span></span><span class="sig-name descname"><span class="pre">filter_by_subtopic</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">df</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">keywords2</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">stopwords2</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/generate_utils.html#filter_by_subtopic"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#generate_utils.filter_by_subtopic" title="Permalink to this definition">¶</a></dt>
+<dd><p>Given a previously filtered DataFrame the function returns the dataframe filtered according to the new subtopic of interest</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>keywords2</strong> – List of words acting as key to filter the dataframe</p></li>
+<li><p><strong>stopwords2</strong> – List of words destined to filter out the tweets that contain them</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>DataFrame with the tweets containing the keywords</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="generate_utils.filter_by_topic">
+<span class="sig-prename descclassname"><span class="pre">generate_utils.</span></span><span class="sig-name descname"><span class="pre">filter_by_topic</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">df</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">keywords</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">stopwords</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/generate_utils.html#filter_by_topic"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#generate_utils.filter_by_topic" title="Permalink to this definition">¶</a></dt>
+<dd><p>Given a DataFrame the function returns the dataframe filtered according the given keywords and stopwords</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>df</strong> – Dataframe with all the tweets</p></li>
+<li><p><strong>keywords</strong> – List of words acting as key to filter the dataframe</p></li>
+<li><p><strong>stopwords</strong> – List of words destined to filter out the tweets containing them</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>DataFrame with the tweets containing the keywords</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="generate_utils.get_all">
+<span class="sig-prename descclassname"><span class="pre">generate_utils.</span></span><span class="sig-name descname"><span class="pre">get_all</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">df</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">keywords</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">stopwords</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">keywords2</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">stopwords2</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">interest</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/generate_utils.html#get_all"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#generate_utils.get_all" title="Permalink to this definition">¶</a></dt>
+<dd><p>Given a DataFrame containing all the tweets, the function returns all the tweet and the user who wrote or
+retweeted it in a nested list</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>df</strong> – DataFrame with all the tweets</p></li>
+<li><p><strong>keywords</strong> – List of words acting as key to filter the DataFrame</p></li>
+<li><p><strong>stopwords</strong> – List of words destined to filter out the tweets that contain them</p></li>
+<li><p><strong>keywords2</strong> – List of words acting as key to filter the DataFrame according to a subtopic</p></li>
+<li><p><strong>stopwords2</strong> – List of words destined to filter out the tweets that contain them according to a subtopic</p></li>
+<li><p><strong>interest</strong> – Active interest from the different categories available from the Lynguo tool</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>Nested lists containing tweet and user</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="generate_utils.get_cites">
+<span class="sig-prename descclassname"><span class="pre">generate_utils.</span></span><span class="sig-name descname"><span class="pre">get_cites</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">df</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">keywords</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">stopwords</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">keywords2</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">stopwords2</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">interest</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/generate_utils.html#get_cites"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#generate_utils.get_cites" title="Permalink to this definition">¶</a></dt>
+<dd><p>Given a DataFrame containing tweets the function returns those tweets belonging to the citations type, removing the retweets.
+The function also applies the filtering processes</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>df</strong> – DataFrame with all the tweets</p></li>
+<li><p><strong>keywords</strong> – List of words acting as key to filter the DataFrame</p></li>
+<li><p><strong>stopwords</strong> – List of words destined to filter out the tweets that contain them</p></li>
+<li><p><strong>keywords2</strong> – List of words acting as key to filter the DataFrame according to a subtopic</p></li>
+<li><p><strong>stopwords2</strong> – List of words destined to filter out the tweets that contain them according to a subtopic</p></li>
+<li><p><strong>interest</strong> – Active interest from the different categories available from the Lynguo tool</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>Nested lists containing normal tweet, not retweets, and user who wrote the tweet</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="generate_utils.get_degrees">
+<span class="sig-prename descclassname"><span class="pre">generate_utils.</span></span><span class="sig-name descname"><span class="pre">get_degrees</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">G</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/generate_utils.html#get_degrees"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#generate_utils.get_degrees" title="Permalink to this definition">¶</a></dt>
+<dd><p>Given a Networkx directed graph, the function returns a CSV file containing the centrality measures of
+the graph (Indegree, Outdegree, Betweenness and Eigenvector) sorted by indegree</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>G</strong> – Networkx directed graph</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>Dataframe with the users, centrality measures and rank based of those measures, sorted by the indegree</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="generate_utils.get_edges">
+<span class="sig-prename descclassname"><span class="pre">generate_utils.</span></span><span class="sig-name descname"><span class="pre">get_edges</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">values</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/generate_utils.html#get_edges"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#generate_utils.get_edges" title="Permalink to this definition">¶</a></dt>
+<dd><p>Given a list of lists containing tweets or retweets and users the function returns the edges to create a network</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>values</strong> – List of lists with the tweet and user</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>List of lists containing the user and the &#64; inside the tweet</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="generate_utils.get_edgesHashRT">
+<span class="sig-prename descclassname"><span class="pre">generate_utils.</span></span><span class="sig-name descname"><span class="pre">get_edgesHashRT</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">values</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/generate_utils.html#get_edgesHashRT"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#generate_utils.get_edgesHashRT" title="Permalink to this definition">¶</a></dt>
+<dd><p>Given a list containing retweets, the function finds all the hashtags inside the text</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>values</strong> – list with the retweets</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>list with all the hashtags in these retweets</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="generate_utils.get_edgesHashRT2">
+<span class="sig-prename descclassname"><span class="pre">generate_utils.</span></span><span class="sig-name descname"><span class="pre">get_edgesHashRT2</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">values</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/generate_utils.html#get_edgesHashRT2"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#generate_utils.get_edgesHashRT2" title="Permalink to this definition">¶</a></dt>
+<dd><p>Given a list of list with users and retweets, the function returns the users and the hashtags in their retweets</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>values</strong> – List of lists with user and retweet</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>List of lists, where each list contains user and hashtags</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="generate_utils.get_edgesMain">
+<span class="sig-prename descclassname"><span class="pre">generate_utils.</span></span><span class="sig-name descname"><span class="pre">get_edgesMain</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">values</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/generate_utils.html#get_edgesMain"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#generate_utils.get_edgesMain" title="Permalink to this definition">¶</a></dt>
+<dd><p>Given a list of tweets, the function returns the hashtags inside those tweets.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>values</strong> – List of tweets</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>List with the hashtags inside the tweets</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="generate_utils.get_edgesmain2">
+<span class="sig-prename descclassname"><span class="pre">generate_utils.</span></span><span class="sig-name descname"><span class="pre">get_edgesmain2</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">values</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/generate_utils.html#get_edgesmain2"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#generate_utils.get_edgesmain2" title="Permalink to this definition">¶</a></dt>
+<dd><p>Given a list of edges, the function returns the hashtags inside the tweet and relates them to the user</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>values</strong> – List of lists containing the edges (user, tweet)</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>List of lists, in each list the user and the hashtag used by them is stored</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="generate_utils.get_hashtagsRT">
+<span class="sig-prename descclassname"><span class="pre">generate_utils.</span></span><span class="sig-name descname"><span class="pre">get_hashtagsRT</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">df</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">keywords</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">stopwords</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">keywords2</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">stopwords2</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">interest</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/generate_utils.html#get_hashtagsRT"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#generate_utils.get_hashtagsRT" title="Permalink to this definition">¶</a></dt>
+<dd><p>Given a DataFrame containing all the tweets the function returns a list containing the different texts that are
+retweets in order to find the hashtags (#) inside them</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>df</strong> – DataFrame with all the tweets</p></li>
+<li><p><strong>keywords</strong> – List of words acting as key to filter the DataFrame</p></li>
+<li><p><strong>stopwords</strong> – List of words destined to filter out the tweets that contain them</p></li>
+<li><p><strong>keywords2</strong> – List of words acting as key to filter the DataFrame according to a subtopic</p></li>
+<li><p><strong>stopwords2</strong> – List of words destined to filter out the tweets that contain them according to a subtopic</p></li>
+<li><p><strong>interest</strong> – Active interest from the different categories available from the Lynguo tool</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>List with the retweets</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="generate_utils.get_hashtagsRT2">
+<span class="sig-prename descclassname"><span class="pre">generate_utils.</span></span><span class="sig-name descname"><span class="pre">get_hashtagsRT2</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">df</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">keywords</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">stopwords</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">keywords2</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">stopwords2</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">interest</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/generate_utils.html#get_hashtagsRT2"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#generate_utils.get_hashtagsRT2" title="Permalink to this definition">¶</a></dt>
+<dd><p>Given a DataFrame containing all the tweets, the function returns a list of lists containing the retweets and the
+users who retweeted them, in order to find the hashtags inside those retweets</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>df</strong> – DataFrame with all the tweets</p></li>
+<li><p><strong>keywords</strong> – List of words acting as key to filter the DataFrame</p></li>
+<li><p><strong>stopwords</strong> – List of words destined to filter out the tweets that contain them</p></li>
+<li><p><strong>keywords2</strong> – List of words acting as key to filter the DataFrame according to a subtopic</p></li>
+<li><p><strong>stopwords2</strong> – List of words destined to filter out the tweets that contain them according to a subtopic</p></li>
+<li><p><strong>interest</strong> – Active interest from the different categories available from the Lynguo tool</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>List of lists, where each list contains user and retweet</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="generate_utils.get_hashtagsmain">
+<span class="sig-prename descclassname"><span class="pre">generate_utils.</span></span><span class="sig-name descname"><span class="pre">get_hashtagsmain</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">df</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">keywords</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">stopwords</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">keywords2</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">stopwords2</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">interest</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/generate_utils.html#get_hashtagsmain"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#generate_utils.get_hashtagsmain" title="Permalink to this definition">¶</a></dt>
+<dd><p>Given a DataFrame containing all the tweets, the function returns a list containing all the mentions
+from the DataFrame</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>df</strong> – DataFrame with all the tweets</p></li>
+<li><p><strong>keywords</strong> – List of words acting as key to filter the DataFrame</p></li>
+<li><p><strong>stopwords</strong> – List of words destined to filter out the tweets that contain them</p></li>
+<li><p><strong>keywords2</strong> – List of words acting as key to filter the DataFrame according to a subtopic</p></li>
+<li><p><strong>stopwords2</strong> – List of words destined to filter out the tweets that contain them according to a subtopic</p></li>
+<li><p><strong>interest</strong> – Active interest from the different categories available from the Lynguo tool</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>List with all the tweets which are mentions</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="generate_utils.get_hashtagsmain2">
+<span class="sig-prename descclassname"><span class="pre">generate_utils.</span></span><span class="sig-name descname"><span class="pre">get_hashtagsmain2</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">df</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">keywords</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">stopwords</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">keywords2</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">stopwords2</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">interest</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/generate_utils.html#get_hashtagsmain2"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#generate_utils.get_hashtagsmain2" title="Permalink to this definition">¶</a></dt>
+<dd><p>Given a DataFrame with all the tweets, the function returns a list of list in which each list contains
+the user and the written tweet</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>df</strong> – DataFrame with all the tweets</p></li>
+<li><p><strong>keywords</strong> – List of words acting as key to filter the DataFrame</p></li>
+<li><p><strong>stopwords</strong> – List of words destined to filter out the tweets that contain them</p></li>
+<li><p><strong>keywords2</strong> – List of words acting as key to filter the DataFrame according to a subtopic</p></li>
+<li><p><strong>stopwords2</strong> – List of words destined to filter out the tweets that contain them according to a subtopic</p></li>
+<li><p><strong>interest</strong> – Active interest from the different categories available from the Lynguo tool</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>List of lists, each list contains user, written tweet</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="generate_utils.get_retweets">
+<span class="sig-prename descclassname"><span class="pre">generate_utils.</span></span><span class="sig-name descname"><span class="pre">get_retweets</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">df</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">keywords</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">stopwords</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">keywords2</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">stopwords2</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">interest</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/generate_utils.html#get_retweets"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#generate_utils.get_retweets" title="Permalink to this definition">¶</a></dt>
+<dd><p>Given a DataFrame containing all the tweets the function returns all those tweets which are retweets (RT:&#64;).
+It also applies the filtering procces</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>df</strong> – DataFrame with all the tweets</p></li>
+<li><p><strong>keywords</strong> – List of words acting as key to filter the DataFrame</p></li>
+<li><p><strong>stopwords</strong> – List of words destined to filter out the tweets that contain them</p></li>
+<li><p><strong>keywords2</strong> – List of words acting as key to filter the DataFrame according to a subtopic</p></li>
+<li><p><strong>stopwords2</strong> – List of words destined to filter out the tweets that contain them according to a subtopic</p></li>
+<li><p><strong>interest</strong> – Active interest from the different categories available from the Lynguo tool</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>Nested lists containing the retweet and the user who retweeted it</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="generate_utils.get_subgraphs">
+<span class="sig-prename descclassname"><span class="pre">generate_utils.</span></span><span class="sig-name descname"><span class="pre">get_subgraphs</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">graph</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/generate_utils.html#get_subgraphs"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#generate_utils.get_subgraphs" title="Permalink to this definition">¶</a></dt>
+<dd><p>Given a networkx Graph the function returns the subgraphs stored in a list</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>graph</strong> – Networkx undirected graph</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>list of subgraphs as networkx objects</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="generate_utils.get_twomodeHashMain">
+<span class="sig-prename descclassname"><span class="pre">generate_utils.</span></span><span class="sig-name descname"><span class="pre">get_twomodeHashMain</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">df</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">keywords</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">stopwords</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">keywords2</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">stopwords2</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">interest</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">filter_hashtags</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/generate_utils.html#get_twomodeHashMain"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#generate_utils.get_twomodeHashMain" title="Permalink to this definition">¶</a></dt>
+<dd><p>Given a DataFrame with all the tweets, the function returns a networkx bipartite graph with
+the users and hashtags (outside retweets) as nodes</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>df</strong> – DataFrame with all the tweets</p></li>
+<li><p><strong>keywords</strong> – List of words acting as key to filter the DataFrame</p></li>
+<li><p><strong>stopwords</strong> – List of words destined to filter out the tweets that contain them</p></li>
+<li><p><strong>keywords2</strong> – List of words acting as key to filter the DataFrame according to a subtopic</p></li>
+<li><p><strong>stopwords2</strong> – List of words destined to filter out the tweets that contain them according to a subtopic</p></li>
+<li><p><strong>interest</strong> – Active interest from the different categories available from the Lynguo tool</p></li>
+<li><p><strong>filter_hashtags</strong> – Boolean, to remove the predefined citizen science most common hashtags</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>Networkx bipartite graph</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="generate_utils.get_twomodeHashRT">
+<span class="sig-prename descclassname"><span class="pre">generate_utils.</span></span><span class="sig-name descname"><span class="pre">get_twomodeHashRT</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">df</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">keywords</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">stopwords</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">keywords2</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">stopwords2</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">interest</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">filter_hashtags</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/generate_utils.html#get_twomodeHashRT"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#generate_utils.get_twomodeHashRT" title="Permalink to this definition">¶</a></dt>
+<dd><blockquote>
+<div><p>Given a DataFrame with all the tweets, the function returns a networkx bipartite graph with the
+users and hashtags (inside retweets) as nodes</p>
+</div></blockquote>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>df</strong> – DataFrame with all the tweets</p></li>
+<li><p><strong>keywords</strong> – List of words acting as key to filter the DataFrame</p></li>
+<li><p><strong>stopwords</strong> – List of words destined to filter out the tweets that contain them</p></li>
+<li><p><strong>keywords2</strong> – List of words acting as key to filter the DataFrame according to a subtopic</p></li>
+<li><p><strong>stopwords2</strong> – List of words destined to filter out the tweets that contain them according to a subtopic</p></li>
+<li><p><strong>interest</strong> – Active interest from the different categories available from the Lynguo tool</p></li>
+<li><p><strong>filter_hashtags</strong> – Boolean, to remove the predefined citizen science most common hashtags</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>Networkx bipartite graph</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="generate_utils.get_twomodeRT">
+<span class="sig-prename descclassname"><span class="pre">generate_utils.</span></span><span class="sig-name descname"><span class="pre">get_twomodeRT</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">df</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">keywords</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">stopwords</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">keywords2</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">stopwords2</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">interest</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/generate_utils.html#get_twomodeRT"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#generate_utils.get_twomodeRT" title="Permalink to this definition">¶</a></dt>
+<dd><p>Given a DataFrame containing al the tweets, the function returns a bipartite graph with the users and the
+retweets as nodes. The retweets are displayed as weighted nodes</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>df</strong> – DataFrame with all the tweets</p></li>
+<li><p><strong>keywords</strong> – List of words acting as key to filter the DataFrame</p></li>
+<li><p><strong>stopwords</strong> – List of words destined to filter out the tweets that contain them</p></li>
+<li><p><strong>keywords2</strong> – List of words acting as key to filter the DataFrame according to a subtopic</p></li>
+<li><p><strong>stopwords2</strong> – List of words destined to filter out the tweets that contain them according to a subtopic</p></li>
+<li><p><strong>interest</strong> – Active interest from the different categories available from the Lynguo tool</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>Networkx bipartite graph</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="generate_utils.most_common">
+<span class="sig-prename descclassname"><span class="pre">generate_utils.</span></span><span class="sig-name descname"><span class="pre">most_common</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">df</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">keywords</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">stopwords</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">keywords2</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">stopwords2</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">interest</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/generate_utils.html#most_common"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#generate_utils.most_common" title="Permalink to this definition">¶</a></dt>
+<dd><p>Given a DataFrame containing all the tweets, the function returns a dictionary with the most used words and
+the number of appearances, a list of these words and a list with the number of times these words appear</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>df</strong> – DataFrame with all the tweets</p></li>
+<li><p><strong>keywords</strong> – List of words acting as key to filter the DataFrame</p></li>
+<li><p><strong>stopwords</strong> – List of words destined to filter out the tweets that contain them</p></li>
+<li><p><strong>keywords2</strong> – List of words acting as key to filter the DataFrame according to a subtopic</p></li>
+<li><p><strong>stopwords2</strong> – List of words destined to filter out the tweets that contain them according to a subtopic</p></li>
+<li><p><strong>interest</strong> – Active interest from the different categories available from the Lynguo tool</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>Tuples dict containing word and number of times, list with the words and list with the times these words appear</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="generate_utils.most_commonwc">
+<span class="sig-prename descclassname"><span class="pre">generate_utils.</span></span><span class="sig-name descname"><span class="pre">most_commonwc</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">df</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">keywords</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">stopwords</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">keywords2</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">stopwords2</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">interest</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/generate_utils.html#most_commonwc"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#generate_utils.most_commonwc" title="Permalink to this definition">¶</a></dt>
+<dd><p>Given a DataFrame containing all the tweets, the function returns a wordcloud with the most used words in these tweets</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>df</strong> – DataFrame with all the tweets</p></li>
+<li><p><strong>keywords</strong> – List of words acting as key to filter the DataFrame</p></li>
+<li><p><strong>stopwords</strong> – List of words destined to filter out the tweets that contain them</p></li>
+<li><p><strong>keywords2</strong> – List of words acting as key to filter the DataFrame according to a subtopic</p></li>
+<li><p><strong>stopwords2</strong> – List of words destined to filter out the tweets that contain them according to a subtopic</p></li>
+<li><p><strong>interest</strong> – Active interest from the different categories available from the Lynguo tool</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>Wordcloud with the most used words displayed in it</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="generate_utils.plotbarchart">
+<span class="sig-prename descclassname"><span class="pre">generate_utils.</span></span><span class="sig-name descname"><span class="pre">plotbarchart</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">numberbars</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">x</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">title</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">xlabel</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ylabel</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/generate_utils.html#plotbarchart"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#generate_utils.plotbarchart" title="Permalink to this definition">¶</a></dt>
+<dd><p>Given a number of elements to plot and the elements in x and y axis the function returns a barchart</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>numberbars</strong> – Number of elements to plot in the chart</p></li>
+<li><p><strong>x</strong> – Elements for x axis</p></li>
+<li><p><strong>y</strong> – Elements for y axis, number of appearances of the x elements</p></li>
+<li><p><strong>title</strong> – Title for the figure, defaults to None</p></li>
+<li><p><strong>xlabel</strong> – Label for the x axis, defaults to None</p></li>
+<li><p><strong>ylabel</strong> – Label for the y axis, defaults to None</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="generate_utils.prepare_hashtags">
+<span class="sig-prename descclassname"><span class="pre">generate_utils.</span></span><span class="sig-name descname"><span class="pre">prepare_hashtags</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">hashtags</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">stopwords</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/generate_utils.html#prepare_hashtags"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#generate_utils.prepare_hashtags" title="Permalink to this definition">¶</a></dt>
+<dd><p>Given a list of hashtags, the function returns the number of appearances of each hashtags and a list of unique hashtags</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>hashtags</strong> – list of hashtags</p></li>
+<li><p><strong>stopwords</strong> – Word or list of words destined to be filtered out from the list of hashtags</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>Ordered list with the number of appearances of each hashtag and a list of unique hashtags</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="generate_utils.prepare_hashtagsmain">
+<span class="sig-prename descclassname"><span class="pre">generate_utils.</span></span><span class="sig-name descname"><span class="pre">prepare_hashtagsmain</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">list</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">stopwords</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/generate_utils.html#prepare_hashtagsmain"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#generate_utils.prepare_hashtagsmain" title="Permalink to this definition">¶</a></dt>
+<dd><p>Given a list of hashtags, the function returns the number of appearances of each hashtag and a unique list of hashtags.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>list</strong> – List of hashtags</p></li>
+<li><p><strong>stopwords</strong> – List of words destined to filter out the desired hashtags from the list</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>Ordered list with the number of appearances of each hashtag and a list of unique hashtags</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="generate_utils.scatterplot">
+<span class="sig-prename descclassname"><span class="pre">generate_utils.</span></span><span class="sig-name descname"><span class="pre">scatterplot</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/generate_utils.html#scatterplot"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#generate_utils.scatterplot" title="Permalink to this definition">¶</a></dt>
+<dd><p>Given the elements for x axis and the number of the elements for y axis the function returns a scatterplot</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>x</strong> – Elements for the x axis</p></li>
+<li><p><strong>y</strong> – Elements for the y axis, number of appearances of the x elements</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="generate_utils.sentiment_analyser">
+<span class="sig-prename descclassname"><span class="pre">generate_utils.</span></span><span class="sig-name descname"><span class="pre">sentiment_analyser</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">df_entry</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">keywords</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">stopwords</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">interest</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/generate_utils.html#sentiment_analyser"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#generate_utils.sentiment_analyser" title="Permalink to this definition">¶</a></dt>
+<dd><p>Given a DataFrame containing all the tweets,the function returns a CSV containing the user and the score
+for each tweet from Vader sentiment</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>df_entry</strong> – A DataFrame containing all the tweets</p></li>
+<li><p><strong>keywords</strong> – List of words acting as key to filter the DataFrame</p></li>
+<li><p><strong>stopwords</strong> – List of words destined to filter out the tweets that contain them</p></li>
+<li><p><strong>interest</strong> – Active interest from the different categories available from the Lynguo tool</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>CSV with the columns User, Text and Sentiment</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="generate_utils.transform_format">
+<span class="sig-prename descclassname"><span class="pre">generate_utils.</span></span><span class="sig-name descname"><span class="pre">transform_format</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">val</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/generate_utils.html#transform_format"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#generate_utils.transform_format" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="generate_utils.wordcloudRT">
+<span class="sig-prename descclassname"><span class="pre">generate_utils.</span></span><span class="sig-name descname"><span class="pre">wordcloudRT</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">df</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">keywords</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">stopwords</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">keywords2</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">stopwords2</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">interest</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/generate_utils.html#wordcloudRT"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#generate_utils.wordcloudRT" title="Permalink to this definition">¶</a></dt>
+<dd><p>Given a DataFrame containing all the tweets, the function returns a wordcloud with the hashtags
+(inside retweets) displayed by frequency</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>df</strong> – DataFrame with all the tweets</p></li>
+<li><p><strong>keywords</strong> – List of words acting as key to filter the DataFrame</p></li>
+<li><p><strong>stopwords</strong> – List of words destined to filter out the tweets that contain them</p></li>
+<li><p><strong>keywords2</strong> – List of words acting as key to filter the DataFrame according to a subtopic</p></li>
+<li><p><strong>stopwords2</strong> – List of words destined to filter out the tweets that contain them according to a subtopic</p></li>
+<li><p><strong>interest</strong> – Active interest from the different categories available from the Lynguo tool</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>Wordcloud with the hashtags by frequency</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="generate_utils.wordcloudRT_logo">
+<span class="sig-prename descclassname"><span class="pre">generate_utils.</span></span><span class="sig-name descname"><span class="pre">wordcloudRT_logo</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">df</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">keywords</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">stopwords</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">keywords2</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">stopwords2</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">interest</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">image</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/generate_utils.html#wordcloudRT_logo"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#generate_utils.wordcloudRT_logo" title="Permalink to this definition">¶</a></dt>
+<dd><p>Given a DataFrame containing all the tweets, the function returns a wordcloud with the hashtags
+(inside retweets) displayed by frequency</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>df</strong> – DataFrame with all the tweets</p></li>
+<li><p><strong>keywords</strong> – List of words acting as key to filter the DataFrame</p></li>
+<li><p><strong>stopwords</strong> – List of words destined to filter out the tweets that contain them</p></li>
+<li><p><strong>keywords2</strong> – List of words acting as key to filter the DataFrame according to a subtopic</p></li>
+<li><p><strong>stopwords2</strong> – List of words destined to filter out the tweets that contain them according to a subtopic</p></li>
+<li><p><strong>interest</strong> – Active interest from the different categories available from the Lynguo tool</p></li>
+<li><p><strong>image</strong> – Image file to plot the wordcloud inside</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>Wordcloud inside desired image with the hashtags by frequency</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="generate_utils.wordcloud_mainhtlogo">
+<span class="sig-prename descclassname"><span class="pre">generate_utils.</span></span><span class="sig-name descname"><span class="pre">wordcloud_mainhtlogo</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">df</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">keywords</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">stopwords</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">keywords2</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">stopwords2</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">interest</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">image</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/generate_utils.html#wordcloud_mainhtlogo"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#generate_utils.wordcloud_mainhtlogo" title="Permalink to this definition">¶</a></dt>
+<dd><p>Given a DataFrame containing all the tweets, the function returns a wordcloud with the hashtags
+(outside retweets) displayed by frequency</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>df</strong> – DataFrame with all the tweets</p></li>
+<li><p><strong>keywords</strong> – List of words acting as key to filter the DataFrame</p></li>
+<li><p><strong>stopwords</strong> – List of words destined to filter out the tweets that contain them</p></li>
+<li><p><strong>keywords2</strong> – List of words acting as key to filter the DataFrame according to a subtopic</p></li>
+<li><p><strong>stopwords2</strong> – List of words destined to filter out the tweets that contain them according to a subtopic</p></li>
+<li><p><strong>interest</strong> – Active interest from the different categories available from the Lynguo tool</p></li>
+<li><p><strong>image</strong> – Image file to plot the wordcloud inside</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>Wordcloud inside desired image with the hashtags by frequency</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="generate_utils.wordcloudmain">
+<span class="sig-prename descclassname"><span class="pre">generate_utils.</span></span><span class="sig-name descname"><span class="pre">wordcloudmain</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">df</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">keywords</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">stopwords</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">interest</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/generate_utils.html#wordcloudmain"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#generate_utils.wordcloudmain" title="Permalink to this definition">¶</a></dt>
+<dd><p>Given a DataFrame containing all the tweets, the function returns a wordcloud with the hashtags
+(outside retweets) displayed by frequency</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>df</strong> – DataFrame with all the tweets</p></li>
+<li><p><strong>keywords</strong> – List of words acting as key to filter the DataFrame</p></li>
+<li><p><strong>stopwords</strong> – List of words destined to filter out the tweets that contain them</p></li>
+<li><p><strong>keywords2</strong> – List of words acting as key to filter the DataFrame according to a subtopic</p></li>
+<li><p><strong>stopwords2</strong> – List of words destined to filter out the tweets that contain them according to a subtopic</p></li>
+<li><p><strong>interest</strong> – Active interest from the different categories available from the Lynguo tool</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>Wordcloud with the hashtags by frequency</p>
+</dd>
+</dl>
+</dd></dl>
+
+</div>
 
 
            </div>
