@@ -109,14 +109,17 @@
 </ul>
 <p class="caption" role="heading"><span class="caption-text">Code</span></p>
 <ul class="current">
-<li class="toctree-l1 current"><a class="current reference internal" href="#">Main application</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Main application</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#standalone">Standalone</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#within-flask">Within Flask</a></li>
+</ul>
+</li>
 <li class="toctree-l1"><a class="reference internal" href="utilities.html">Modules</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="berttopic_utils.html">Bertopic utilities module</a></li>
 <li class="toctree-l2"><a class="reference internal" href="communities_utils.html">Community calculation module</a></li>
 <li class="toctree-l2"><a class="reference internal" href="dash_utils.html">Figure generation module</a></li>
 <li class="toctree-l2"><a class="reference internal" href="generate_utils.html">Input formatting</a></li>
 <li class="toctree-l2"><a class="reference internal" href="map_utils.html">Geomap utilities module</a></li>
-<li class="toctree-l2"><a class="reference internal" href="style.html">Style configuration module</a></li>
 </ul>
 </li>
 </ul>
@@ -195,8 +198,36 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
             
-  <div class="section" id="module-dash_cs">
-<span id="main-application"></span><h1>Main application<a class="headerlink" href="#module-dash_cs" title="Permalink to this headline">¶</a></h1>
+  <div class="section" id="main-application">
+<h1>Main application<a class="headerlink" href="#main-application" title="Permalink to this headline">¶</a></h1>
+<p>The application can be run in different ways</p>
+<div class="section" id="standalone">
+<h2>Standalone<a class="headerlink" href="#standalone" title="Permalink to this headline">¶</a></h2>
+<p>In order to run the application you need to execute the command:</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>python dash_cs.py
+</pre></div>
+</div>
+</div>
+<div class="section" id="within-flask">
+<h2>Within Flask<a class="headerlink" href="#within-flask" title="Permalink to this headline">¶</a></h2>
+<p>You can move the cstrack_dash folder to the folder where the Flask application is running and then register the app in the Flask application. Here we provide a small example.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">flask</span> <span class="kn">import</span> <span class="n">Flask</span>
+<span class="kn">import</span> <span class="nn">config</span>
+
+<span class="k">def</span> <span class="nf">create_app</span><span class="p">():</span>
+<span class="sd">&quot;&quot;&quot;Initialize the core application.&quot;&quot;&quot;</span>
+<span class="n">app</span> <span class="o">=</span> <span class="n">Flask</span><span class="p">(</span><span class="vm">__name__</span><span class="p">,</span> <span class="n">instance_relative_config</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+<span class="n">app</span><span class="o">.</span><span class="n">config</span><span class="o">.</span><span class="n">from_object</span><span class="p">(</span><span class="s1">&#39;config.ProdConfig&#39;</span><span class="p">)</span>
+
+<span class="k">with</span> <span class="n">app</span><span class="o">.</span><span class="n">app_context</span><span class="p">():</span>
+    <span class="c1"># Include Routes</span>
+    <span class="kn">from</span> <span class="nn">.cstrack_dash</span> <span class="kn">import</span> <span class="n">dash_cs</span> <span class="k">as</span> <span class="n">dcs</span>
+    <span class="n">app</span><span class="p">,</span> <span class="n">server</span> <span class="o">=</span> <span class="n">dcs</span><span class="o">.</span><span class="n">create_dashboard</span><span class="p">(</span><span class="n">app</span><span class="p">)</span>
+    <span class="c1"># Register Blueprints</span>
+    <span class="k">return</span> <span class="n">app</span>
+</pre></div>
+</div>
+</div>
 </div>
 
 

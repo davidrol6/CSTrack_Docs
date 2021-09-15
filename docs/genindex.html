@@ -107,14 +107,17 @@
 </ul>
 <p class="caption" role="heading"><span class="caption-text">Code</span></p>
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="dash_cs.html">Main application</a></li>
+<li class="toctree-l1"><a class="reference internal" href="dash_cs.html">Main application</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="dash_cs.html#standalone">Standalone</a></li>
+<li class="toctree-l2"><a class="reference internal" href="dash_cs.html#within-flask">Within Flask</a></li>
+</ul>
+</li>
 <li class="toctree-l1"><a class="reference internal" href="utilities.html">Modules</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="berttopic_utils.html">Bertopic utilities module</a></li>
 <li class="toctree-l2"><a class="reference internal" href="communities_utils.html">Community calculation module</a></li>
 <li class="toctree-l2"><a class="reference internal" href="dash_utils.html">Figure generation module</a></li>
 <li class="toctree-l2"><a class="reference internal" href="generate_utils.html">Input formatting</a></li>
 <li class="toctree-l2"><a class="reference internal" href="map_utils.html">Geomap utilities module</a></li>
-<li class="toctree-l2"><a class="reference internal" href="style.html">Style configuration module</a></li>
 </ul>
 </li>
 </ul>
@@ -202,8 +205,10 @@
  | <a href="#F"><strong>F</strong></a>
  | <a href="#G"><strong>G</strong></a>
  | <a href="#K"><strong>K</strong></a>
+ | <a href="#L"><strong>L</strong></a>
  | <a href="#M"><strong>M</strong></a>
  | <a href="#P"><strong>P</strong></a>
+ | <a href="#R"><strong>R</strong></a>
  | <a href="#S"><strong>S</strong></a>
  | <a href="#T"><strong>T</strong></a>
  | <a href="#W"><strong>W</strong></a>
@@ -251,20 +256,15 @@
         <li><a href="config.html#module-config">module</a>
 </li>
       </ul></li>
+      <li><a href="communities_utils.html#communities_utils.connections">connections() (in module communities_utils)</a>
+</li>
+      <li><a href="berttopic_utils.html#berttopic_utils.create_bert_model">create_bert_model() (in module berttopic_utils)</a>
+</li>
   </ul></td>
 </tr></table>
 
 <h2 id="D">D</h2>
 <table style="width: 100%" class="indextable genindextable"><tr>
-  <td style="width: 33%; vertical-align: top;"><ul>
-      <li>
-    dash_cs
-
-      <ul>
-        <li><a href="dash_cs.html#module-dash_cs">module</a>
-</li>
-      </ul></li>
-  </ul></td>
   <td style="width: 33%; vertical-align: top;"><ul>
       <li>
     dash_utils
@@ -273,6 +273,8 @@
         <li><a href="dash_utils.html#module-dash_utils">module</a>
 </li>
       </ul></li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="generate_utils.html#generate_utils.direct_subgraphs">direct_subgraphs() (in module generate_utils)</a>
 </li>
   </ul></td>
@@ -310,7 +312,11 @@
 </li>
       <li><a href="generate_utils.html#generate_utils.get_cites">get_cites() (in module generate_utils)</a>
 </li>
+      <li><a href="berttopic_utils.html#berttopic_utils.get_cleaned_documents">get_cleaned_documents() (in module berttopic_utils)</a>
+</li>
       <li><a href="dash_utils.html#dash_utils.get_communities">get_communities() (in module dash_utils)</a>
+</li>
+      <li><a href="communities_utils.html#communities_utils.get_communities_representative_graph">get_communities_representative_graph() (in module communities_utils)</a>
 </li>
       <li><a href="dash_utils.html#dash_utils.get_community_graph">get_community_graph() (in module dash_utils)</a>
 </li>
@@ -342,14 +348,14 @@
 </li>
       <li><a href="generate_utils.html#generate_utils.get_edgesHashRT2">get_edgesHashRT2() (in module generate_utils)</a>
 </li>
-  </ul></td>
-  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="generate_utils.html#generate_utils.get_edgesMain">get_edgesMain() (in module generate_utils)</a>
 </li>
       <li><a href="generate_utils.html#generate_utils.get_edgesmain2">get_edgesmain2() (in module generate_utils)</a>
 </li>
       <li><a href="dash_utils.html#dash_utils.get_figure">get_figure() (in module dash_utils)</a>
 </li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="dash_utils.html#dash_utils.get_graph_rt">get_graph_rt() (in module dash_utils)</a>
 </li>
       <li><a href="dash_utils.html#dash_utils.get_hash_name_list">get_hash_name_list() (in module dash_utils)</a>
@@ -362,7 +368,17 @@
 </li>
       <li><a href="generate_utils.html#generate_utils.get_hashtagsRT2">get_hashtagsRT2() (in module generate_utils)</a>
 </li>
+      <li><a href="berttopic_utils.html#berttopic_utils.get_heatmap">get_heatmap() (in module berttopic_utils)</a>
+</li>
+      <li><a href="berttopic_utils.html#berttopic_utils.get_hierarchical_clusterin">get_hierarchical_clusterin() (in module berttopic_utils)</a>
+</li>
+      <li><a href="berttopic_utils.html#berttopic_utils.get_intertopic_distance">get_intertopic_distance() (in module berttopic_utils)</a>
+</li>
       <li><a href="dash_utils.html#dash_utils.get_map_df">get_map_df() (in module dash_utils)</a>
+</li>
+      <li><a href="map_utils.html#map_utils.get_map_locations">get_map_locations() (in module map_utils)</a>
+</li>
+      <li><a href="map_utils.html#map_utils.get_map_stats_by_country">get_map_stats_by_country() (in module map_utils)</a>
 </li>
       <li><a href="generate_utils.html#generate_utils.get_retweets">get_retweets() (in module generate_utils)</a>
 </li>
@@ -378,6 +394,10 @@
 </li>
       <li><a href="dash_utils.html#dash_utils.get_topic_file">get_topic_file() (in module dash_utils)</a>
 </li>
+      <li><a href="berttopic_utils.html#berttopic_utils.get_topics_bar">get_topics_bar() (in module berttopic_utils)</a>
+</li>
+      <li><a href="berttopic_utils.html#berttopic_utils.get_topics_over_time">get_topics_over_time() (in module berttopic_utils)</a>
+</li>
       <li><a href="dash_utils.html#dash_utils.get_twitter_info_df">get_twitter_info_df() (in module dash_utils)</a>
 </li>
       <li><a href="dash_utils.html#dash_utils.get_two_mode_graph">get_two_mode_graph() (in module dash_utils)</a>
@@ -387,6 +407,8 @@
       <li><a href="generate_utils.html#generate_utils.get_twomodeHashRT">get_twomodeHashRT() (in module generate_utils)</a>
 </li>
       <li><a href="generate_utils.html#generate_utils.get_twomodeRT">get_twomodeRT() (in module generate_utils)</a>
+</li>
+      <li><a href="generate_utils.html#generate_utils.getDays">getDays() (in module generate_utils)</a>
 </li>
   </ul></td>
 </tr></table>
@@ -399,9 +421,23 @@
   </ul></td>
 </tr></table>
 
+<h2 id="L">L</h2>
+<table style="width: 100%" class="indextable genindextable"><tr>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="berttopic_utils.html#berttopic_utils.load_model">load_model() (in module berttopic_utils)</a>
+</li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="berttopic_utils.html#berttopic_utils.load_topics">load_topics() (in module berttopic_utils)</a>
+</li>
+  </ul></td>
+</tr></table>
+
 <h2 id="M">M</h2>
 <table style="width: 100%" class="indextable genindextable"><tr>
   <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="generate_utils.html#generate_utils.make_weightedDiGraph">make_weightedDiGraph() (in module generate_utils)</a>
+</li>
       <li>
     map_utils
 
@@ -419,15 +455,11 @@
 </li>
         <li><a href="config.html#module-config">config</a>
 </li>
-        <li><a href="dash_cs.html#module-dash_cs">dash_cs</a>
-</li>
         <li><a href="dash_utils.html#module-dash_utils">dash_utils</a>
 </li>
         <li><a href="generate_utils.html#module-generate_utils">generate_utils</a>
 </li>
         <li><a href="map_utils.html#module-map_utils">map_utils</a>
-</li>
-        <li><a href="style.html#module-style">style</a>
 </li>
         <li><a href="submenus.html#module-submenus">submenus</a>
 </li>
@@ -455,6 +487,14 @@
   </ul></td>
 </tr></table>
 
+<h2 id="R">R</h2>
+<table style="width: 100%" class="indextable genindextable"><tr>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="berttopic_utils.html#berttopic_utils.remove_stopwords">remove_stopwords() (in module berttopic_utils)</a>
+</li>
+  </ul></td>
+</tr></table>
+
 <h2 id="S">S</h2>
 <table style="width: 100%" class="indextable genindextable"><tr>
   <td style="width: 33%; vertical-align: top;"><ul>
@@ -462,17 +502,10 @@
 </li>
       <li><a href="generate_utils.html#generate_utils.sentiment_analyser">sentiment_analyser() (in module generate_utils)</a>
 </li>
-      <li><a href="dash_utils.html#dash_utils.set_loading">set_loading() (in module dash_utils)</a>
-</li>
   </ul></td>
   <td style="width: 33%; vertical-align: top;"><ul>
-      <li>
-    style
-
-      <ul>
-        <li><a href="style.html#module-style">module</a>
+      <li><a href="dash_utils.html#dash_utils.set_loading">set_loading() (in module dash_utils)</a>
 </li>
-      </ul></li>
       <li>
     submenus
 

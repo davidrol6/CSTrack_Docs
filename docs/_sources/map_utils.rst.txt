@@ -2,3 +2,5 @@ Geomap utilities module
 =======================
 
 .. automodule:: map_utils
+   :members:
+   :undoc-members:

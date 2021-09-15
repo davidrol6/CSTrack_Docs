@@ -109,14 +109,17 @@
 </ul>
 <p class="caption" role="heading"><span class="caption-text">Code</span></p>
 <ul class="current">
-<li class="toctree-l1"><a class="reference internal" href="dash_cs.html">Main application</a></li>
+<li class="toctree-l1"><a class="reference internal" href="dash_cs.html">Main application</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="dash_cs.html#standalone">Standalone</a></li>
+<li class="toctree-l2"><a class="reference internal" href="dash_cs.html#within-flask">Within Flask</a></li>
+</ul>
+</li>
 <li class="toctree-l1 current"><a class="reference internal" href="utilities.html">Modules</a><ul class="current">
 <li class="toctree-l2 current"><a class="current reference internal" href="#">Bertopic utilities module</a></li>
 <li class="toctree-l2"><a class="reference internal" href="communities_utils.html">Community calculation module</a></li>
 <li class="toctree-l2"><a class="reference internal" href="dash_utils.html">Figure generation module</a></li>
 <li class="toctree-l2"><a class="reference internal" href="generate_utils.html">Input formatting</a></li>
 <li class="toctree-l2"><a class="reference internal" href="map_utils.html">Geomap utilities module</a></li>
-<li class="toctree-l2"><a class="reference internal" href="style.html">Style configuration module</a></li>
 </ul>
 </li>
 </ul>
@@ -200,6 +203,153 @@
   <div class="section" id="module-berttopic_utils">
 <span id="bertopic-utilities-module"></span><h1>Bertopic utilities module<a class="headerlink" href="#module-berttopic_utils" title="Permalink to this headline">¶</a></h1>
 <p>This module provides functionality to create topic modelling models and visualizations.</p>
+<dl class="py function">
+<dt class="sig sig-object py" id="berttopic_utils.create_bert_model">
+<span class="sig-prename descclassname"><span class="pre">berttopic_utils.</span></span><span class="sig-name descname"><span class="pre">create_bert_model</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">documents</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/berttopic_utils.html#create_bert_model"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#berttopic_utils.create_bert_model" title="Permalink to this definition">¶</a></dt>
+<dd><p>Given a list of sentences, it creates a BERTopic model with them.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>documents</strong> – List of sentences (strings).</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>The BERTopic model, the topics and the probabilities.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="berttopic_utils.get_cleaned_documents">
+<span class="sig-prename descclassname"><span class="pre">berttopic_utils.</span></span><span class="sig-name descname"><span class="pre">get_cleaned_documents</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">df_original</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/berttopic_utils.html#get_cleaned_documents"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#berttopic_utils.get_cleaned_documents" title="Permalink to this definition">¶</a></dt>
+<dd><p>Given a df with a column Texto (tweets), this function preprocess the texts of that column removing punctuation, common
+words, stop words and urls.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>df_original</strong> – A df as with the tweets.</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>A list with the tweets (strings).</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="berttopic_utils.get_heatmap">
+<span class="sig-prename descclassname"><span class="pre">berttopic_utils.</span></span><span class="sig-name descname"><span class="pre">get_heatmap</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">model</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/berttopic_utils.html#get_heatmap"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#berttopic_utils.get_heatmap" title="Permalink to this definition">¶</a></dt>
+<dd><p>Wrapper to create the heatmap visualization.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>model</strong> – The BERTopic model.</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>The heatmap visualization.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="berttopic_utils.get_hierarchical_clusterin">
+<span class="sig-prename descclassname"><span class="pre">berttopic_utils.</span></span><span class="sig-name descname"><span class="pre">get_hierarchical_clusterin</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">model</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/berttopic_utils.html#get_hierarchical_clusterin"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#berttopic_utils.get_hierarchical_clusterin" title="Permalink to this definition">¶</a></dt>
+<dd><p>Wrapper to create the hierachical visualization.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>model</strong> – The BERTopic model.</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>The hierachical visualization.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="berttopic_utils.get_intertopic_distance">
+<span class="sig-prename descclassname"><span class="pre">berttopic_utils.</span></span><span class="sig-name descname"><span class="pre">get_intertopic_distance</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">model</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">top_n_topics</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">20</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/berttopic_utils.html#get_intertopic_distance"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#berttopic_utils.get_intertopic_distance" title="Permalink to this definition">¶</a></dt>
+<dd><p>Wrapper to create the intertopic distance visualization</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>model</strong> – The BERTopic model.</p></li>
+<li><p><strong>top_n_topics</strong> – The number of topics to show.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>The intertopic visualization.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="berttopic_utils.get_topics_bar">
+<span class="sig-prename descclassname"><span class="pre">berttopic_utils.</span></span><span class="sig-name descname"><span class="pre">get_topics_bar</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">model</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">top_n_topics</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">9</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/berttopic_utils.html#get_topics_bar"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#berttopic_utils.get_topics_bar" title="Permalink to this definition">¶</a></dt>
+<dd><p>Wrapper to create the barchart visualization.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>model</strong> – The BERTopic model.</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>The barchart visualization.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="berttopic_utils.get_topics_over_time">
+<span class="sig-prename descclassname"><span class="pre">berttopic_utils.</span></span><span class="sig-name descname"><span class="pre">get_topics_over_time</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">df</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">model</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">documents</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">topics</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/berttopic_utils.html#get_topics_over_time"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#berttopic_utils.get_topics_over_time" title="Permalink to this definition">¶</a></dt>
+<dd><p>Wrapper to create the heatmap visualization.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>model</strong> – The BERTopic model.</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>The heatmap visualization.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="berttopic_utils.load_model">
+<span class="sig-prename descclassname"><span class="pre">berttopic_utils.</span></span><span class="sig-name descname"><span class="pre">load_model</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">filename</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/berttopic_utils.html#load_model"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#berttopic_utils.load_model" title="Permalink to this definition">¶</a></dt>
+<dd><p>Given a filename, it loads the BERTopic model.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>filename</strong> – A string that represents the filename.</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>The BERTopic model.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="berttopic_utils.load_topics">
+<span class="sig-prename descclassname"><span class="pre">berttopic_utils.</span></span><span class="sig-name descname"><span class="pre">load_topics</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">filename</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/berttopic_utils.html#load_topics"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#berttopic_utils.load_topics" title="Permalink to this definition">¶</a></dt>
+<dd><p>Given a filename, it loads the topics generated when creating the BERTmodel.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>filename</strong> – A string that represents the filename.</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>The BERTopic topics.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="berttopic_utils.remove_stopwords">
+<span class="sig-prename descclassname"><span class="pre">berttopic_utils.</span></span><span class="sig-name descname"><span class="pre">remove_stopwords</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">texts</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">stop_words</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/berttopic_utils.html#remove_stopwords"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#berttopic_utils.remove_stopwords" title="Permalink to this definition">¶</a></dt>
+<dd><p>Given a list of sentences, it removes the stop_words from each sentence.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>texts</strong> – List of sentences (strings)</p></li>
+<li><p><strong>stop_words</strong> – List of words (strings) to remove.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>List of sentences (strings) without the stop words.</p>
+</dd>
+</dl>
+</dd></dl>
+
 </div>
 
 

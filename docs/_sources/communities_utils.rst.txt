@@ -2,3 +2,5 @@ Community calculation module
 ============================
 
 .. automodule:: communities_utils
+   :members:
+   :undoc-members:

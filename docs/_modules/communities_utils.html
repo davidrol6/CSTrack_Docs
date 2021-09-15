@@ -1,0 +1,298 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" />
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  
+  <title>communities_utils &mdash; CSTrack 05-08-2021 documentation</title>
+  
+
+  
+  <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/panels-bootstrap.5fd3999ee7762ccc51105388f4a9d115.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/panels-main.c949a650a448cc0ae9fd3441c0e17fb0.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/panels-variables.06eb56fa6e07937060861dad626602ad.css" type="text/css" />
+
+  
+  
+
+  
+  
+
+  
+
+  
+  <!--[if lt IE 9]>
+    <script src="../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+        <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+        <script src="../_static/jquery.js"></script>
+        <script src="../_static/underscore.js"></script>
+        <script src="../_static/doctools.js"></script>
+    
+    <script type="text/javascript" src="../_static/js/theme.js"></script>
+
+    
+    <link rel="author" title="About these documents" href="../about.html" />
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="../index.html" class="icon icon-home"> CSTrack
+          
+
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption" role="heading"><span class="caption-text">Project documentation</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../inputs.html">Input data</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../inputs.html#tweet-dataset">Tweet dataset</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../inputs.html#database-connections">Database connections</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../inputs.html#bert-model">BERT model</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../inputs.html#final-considerations">Final considerations</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../installation.html">Installation</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../installation.html#standard-deployment">Standard deployment</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../installation.html#docker-deployment">Docker deployment</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../installation.html#running-the-application">Running the application</a></li>
+</ul>
+</li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Code</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../dash_cs.html">Main application</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../dash_cs.html#standalone">Standalone</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../dash_cs.html#within-flask">Within Flask</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../utilities.html">Modules</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../berttopic_utils.html">Bertopic utilities module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../communities_utils.html">Community calculation module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../dash_utils.html">Figure generation module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../generate_utils.html">Input formatting</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../map_utils.html">Geomap utilities module</a></li>
+</ul>
+</li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Project information</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../about.html">About</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../about.html#acknowledgements">Acknowledgements</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../about.html#contact">Contact</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../institutions.html">Participating institutions</a></li>
+</ul>
+
+            
+          
+        </div>
+        
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">CSTrack</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../index.html" class="icon icon-home"></a> &raquo;</li>
+        
+          <li><a href="index.html">Module code</a> &raquo;</li>
+        
+      <li>communities_utils</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <h1>Source code for communities_utils</h1><div class="highlight"><pre>
+<span></span><span class="sd">&quot;&quot;&quot;This module allows the creating networks of communities and the interactions of each community</span>
+<span class="sd">with users from another community</span>
+<span class="sd">&quot;&quot;&quot;</span>
+
+<span class="kn">import</span> <span class="nn">networkx</span> <span class="k">as</span> <span class="nn">nx</span>
+
+
+<div class="viewcode-block" id="connections"><a class="viewcode-back" href="../communities_utils.html#communities_utils.connections">[docs]</a><span class="k">def</span> <span class="nf">connections</span><span class="p">(</span><span class="n">g</span><span class="p">,</span> <span class="n">node</span><span class="p">,</span> <span class="n">list_communities</span><span class="p">,</span> <span class="n">own_community</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Given a graph a node, a list of communities and the community to which that node belongs it creates the connections</span>
+<span class="sd">    of each community with each other.</span>
+
+<span class="sd">    :param g: The general graph.</span>
+<span class="sd">    :param node: The node that is being analysed.</span>
+<span class="sd">    :param list_communities: A list of lists with each individual list containing the users that belong to that community.</span>
+<span class="sd">    :param own_community: The number of the community to which the node belongs</span>
+<span class="sd">    :return: The edges among the communities.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">edges</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="n">list_edges_node</span> <span class="o">=</span> <span class="n">g</span><span class="o">.</span><span class="n">edges</span><span class="p">(</span><span class="n">node</span><span class="p">)</span>
+    <span class="k">for</span> <span class="n">c</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">list_communities</span><span class="p">)):</span>
+        <span class="k">if</span> <span class="n">c</span> <span class="o">!=</span> <span class="n">own_community</span><span class="p">:</span>
+            <span class="k">for</span> <span class="n">element</span> <span class="ow">in</span> <span class="n">list_communities</span><span class="p">[</span><span class="n">c</span><span class="p">]:</span>
+                <span class="k">for</span> <span class="n">e</span> <span class="ow">in</span> <span class="n">list_edges_node</span><span class="p">:</span>
+                    <span class="k">if</span> <span class="n">e</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">==</span> <span class="n">element</span><span class="p">:</span>
+                        <span class="n">edges</span><span class="o">.</span><span class="n">append</span><span class="p">((</span><span class="n">own_community</span><span class="p">,</span> <span class="n">c</span><span class="p">))</span>
+    <span class="k">return</span> <span class="n">edges</span></div>
+
+
+
+
+
+<div class="viewcode-block" id="get_communities_representative_graph"><a class="viewcode-back" href="../communities_utils.html#communities_utils.get_communities_representative_graph">[docs]</a><span class="k">def</span> <span class="nf">get_communities_representative_graph</span><span class="p">(</span><span class="n">g</span><span class="p">,</span> <span class="n">l_communities</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Given a general graph and a list of communities, it creates a graph where each node is each communitie.</span>
+
+<span class="sd">    :param g: The general graph.</span>
+<span class="sd">    :param l_communities: A list of lists with each individual list containing the users that belong to that community.</span>
+<span class="sd">    :return: A graph where each node is a community.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">n_graph</span> <span class="o">=</span> <span class="n">nx</span><span class="o">.</span><span class="n">Graph</span><span class="p">()</span>
+    <span class="n">nodes</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">l_communities</span><span class="p">)))</span>
+    <span class="n">edges</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="c1">#for each community</span>
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">l_communities</span><span class="p">)):</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;COMMUNITY&quot;</span><span class="p">,</span> <span class="n">i</span><span class="p">)</span>
+        <span class="nb">print</span><span class="p">(</span><span class="n">l_communities</span><span class="p">[</span><span class="n">i</span><span class="p">])</span>
+        <span class="c1">#for each element in community</span>
+        <span class="k">for</span> <span class="n">e</span> <span class="ow">in</span> <span class="n">l_communities</span><span class="p">[</span><span class="n">i</span><span class="p">]:</span>
+            <span class="n">edges</span> <span class="o">=</span> <span class="n">connections</span><span class="p">(</span><span class="n">g</span><span class="p">,</span> <span class="n">e</span><span class="p">,</span> <span class="n">l_communities</span><span class="p">,</span> <span class="n">i</span><span class="p">)</span>
+            <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;----------- ARE THERE EDGES --------------&quot;</span><span class="p">)</span>
+            <span class="nb">print</span><span class="p">(</span><span class="n">edges</span><span class="p">)</span>
+            <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">edges</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
+                <span class="n">n_graph</span><span class="o">.</span><span class="n">add_edges_from</span><span class="p">(</span><span class="n">edges</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">n_graph</span></div>
+</pre></div>
+
+           </div>
+           
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &#169; Copyright 2021, David Roldan and Fernando Martinez.
+
+    </p>
+  </div>
+    
+    
+    
+    Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    
+    provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

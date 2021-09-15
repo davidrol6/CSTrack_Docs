@@ -10,4 +10,3 @@ Modules
    dash_utils
    generate_utils
    map_utils
-   style

@@ -10,5 +10,3 @@ cstrack_dash
    dash_utils
    generate_utils
    map_utils
-   style
-   submenus

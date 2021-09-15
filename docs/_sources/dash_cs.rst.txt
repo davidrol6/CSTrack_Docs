@@ -1,5 +1,40 @@
 Main application
 ================
 
-.. automodule:: dash_cs
-   :members:
+The application can be run in different ways
+
+**********
+Standalone
+**********
+
+In order to run the application you need to execute the command:
+
+.. code:: console
+
+    $ python dash_cs.py
+
+************
+Within Flask
+************
+
+You can move the cstrack_dash folder to the folder where the Flask application is running and then register the app in the Flask application. Here we provide a small example.
+
+.. code:: python
+
+    from flask import Flask
+    import config
+
+    def create_app():
+    """Initialize the core application."""
+    app = Flask(__name__, instance_relative_config=False)
+    app.config.from_object('config.ProdConfig')
+
+    with app.app_context():
+        # Include Routes
+        from .cstrack_dash import dash_cs as dcs
+        app, server = dcs.create_dashboard(app)
+        # Register Blueprints
+        return app
+
+
+
